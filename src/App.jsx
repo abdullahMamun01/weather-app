@@ -82,7 +82,7 @@ function App() {
             (!geolocation?.lat || !geolocation?.lon) && (
               <div className="text-center mt-10 text-2xl text-gray-300 max-w-[500px]">
                 <h1 >Please enable location services</h1>
-                <p>To display the weather information, we need access to your location. Please enable location services in your browser settings.</p>
+                <p>To display the weather information, we need access to your location. Please enable location services in your current app settings.</p>
               </div>
             )
           }
