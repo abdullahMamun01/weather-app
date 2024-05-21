@@ -11,8 +11,8 @@ function App() {
     lon: ''
   })
 
-  const handleGeoLocationByCity = (lat,lon) => {
-    setGeolocation({lat,lon})
+  const handleGeoLocationByCity = (lat, lon) => {
+    setGeolocation({ lat, lon })
   }
 
   //fetching api for weather data
@@ -22,7 +22,7 @@ function App() {
       try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_API_KEY}`)
         const data = await response.json()
-        if(!response.ok){
+        if (!response.ok) {
           throw Error('data fetching faild')
         }
 
@@ -72,14 +72,24 @@ function App() {
     })
   }, [])
 
-  console.log(weatherData)
+
   return (
     <div>
-      <Navbar handleGeoLocationByCity={handleGeoLocationByCity}/>
+      <Navbar handleGeoLocationByCity={handleGeoLocationByCity} />
       <div className="flex justify-center items-center min-h-screen">
         <div>
+          {
+            (!geolocation?.lat || !geolocation?.lon) && (
+              <div className="text-center mt-10 text-2xl text-gray-300 max-w-[500px]">
+                <h1 >Please enable location services</h1>
+                <p>To display the weather information, we need access to your location. Please enable location services in your browser settings.</p>
+              </div>
+            )
+          }
+
+
           {error && error.message}
-          {loading && <span className="text-green-500 my-5">Loading....</span>}
+          {loading && <span className="text-green-500 my-5 text-center">Loading....</span>}
         </div>
         {weatherData && <Weather weatherData={weatherData} />}
       </div>
